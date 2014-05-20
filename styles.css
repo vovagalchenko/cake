@@ -1,0 +1,45 @@
+body {
+	background: #F2F2F2;
+	font-family: "cake_font";
+}
+
+@font-face {
+	font-family: "cake_font";
+	src: url("AvenirNext-Regular.woff") format('woff');
+}
+
+@font-face {
+	font-family: "cake_font";
+	src: url("AvenirNext-Medium.woff") format('woff');
+	font-weight: bold;
+}
+
+
+.cake-text p {
+	font-size: 30px;
+	text-align: center;
+	margin:0px;
+}
+
+.cake-highlight {
+	color: #B90813;
+}
+
+.cake-icon {
+	width: 200px;
+	height: 200px;
+	margin: 100px auto 50px auto;
+	display: block;
+}
+
+.cake-box {
+	margin: auto;
+}
+
+.cake-badge {
+	width: 213px;
+	height: 74px;
+	border-radius: 5px;
+	display: block;
+	margin: 50px auto auto auto;
+}
