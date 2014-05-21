@@ -5,12 +5,12 @@ body {
 
 @font-face {
 	font-family: "cake_font";
-	src: url("AvenirNext-Regular.woff") format('woff');
+	src: url("fonts/AvenirNext-Regular.woff") format('woff');
 }
 
 @font-face {
 	font-family: "cake_font";
-	src: url("AvenirNext-Medium.woff") format('woff');
+	src: url("fonts/AvenirNext-Medium.woff") format('woff');
 	font-weight: bold;
 }
 
