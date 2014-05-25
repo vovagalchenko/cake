@@ -22,6 +22,10 @@ body {
 	color: #393939;
 }
 
+.tagline {
+	font-weight: bold;
+}
+
 .cake-highlight {
 	color: #B90813;
 }
