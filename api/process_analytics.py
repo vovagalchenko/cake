@@ -1,6 +1,7 @@
-#!/usr/bin/python -u
+#!/usr/bin/python3 -u
 
-CLIENT_LOG_ROOT = "/var/asswaffle/client_logs"
+from builtins import str
+CLIENT_LOG_ROOT = "/var/log/cake/native"
 
 import sys, json, os, datetime, copy, codecs
 from pytz import timezone
@@ -29,7 +30,7 @@ with codecs.open(file_path, "w", encoding='utf-8') as f:
     http_body = sys.stdin.read()
     try:
         http_body_list = json.loads(http_body)
-    except ValueError, e:
+    except ValueError as e:
         sys.stderr.write("\n\n\n" + http_body)
         exit(1)
     assert isinstance(http_body_list, list), "The received analytics must be an array of event groups. Actually received: " + str(http_body_list)
@@ -38,7 +39,7 @@ with codecs.open(file_path, "w", encoding='utf-8') as f:
         assert isinstance(events, list), "Each event group must contain a key 'events' with an array of events."
         for event in events:
             timestamp = event.pop('timestamp', None)
-            assert isinstance(timestamp, (int, long, float, complex)), "Each event must contain a key 'timestamp' with a number indicating the time of when the event happened"
+            assert isinstance(timestamp, (int, float, complex)), "Each event must contain a key 'timestamp' with a number indicating the time of when the event happened"
             time_of_event = datetime.datetime.fromtimestamp(timestamp, timezone("America/Los_Angeles"))
             event_name = event.pop('event_name', None)
             assert event_name is not None, "Each event must contain a value for key 'event_name' with a string indicating the name of the event"
@@ -48,6 +49,6 @@ with codecs.open(file_path, "w", encoding='utf-8') as f:
             user_timezone = event.get('user_timezone', None)
             if user_timezone is not None:
                 event['user_time'] = datetime.datetime.fromtimestamp(timestamp, timezone(user_timezone)).isoformat()
-            f.write("%s\tevent_name=\"%s\" event_type=\"%s\" %s\n" % (time_of_event.isoformat(), event_name, event_type, ' '.join(['%s="%s"' % (key, value) for (key, value) in event.items()])))
+            f.write("%s\tevent_name=\"%s\" event_type=\"%s\" %s\n" % (time_of_event.isoformat(), event_name, event_type, ' '.join(['%s="%s"' % (key, value) for (key, value) in list(event.items())])))
 
 os.unlink(sys.argv[1])
